@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage ("git_copy") {
+
+            steps {
+
+                git branch: "master", url: "https://github.com/Rohanta22/project.git"
+
+            }
+
+        }
+
+        stage ("compile") {
+
+            steps {
+
+                sh "mvn clean install"
+
+            }
+
+        }
+
+        stage ("deploy") {
+
+            steps {
+
+                sh "sudo cp -r /root/.jenkins/workspace/assignemt_2_script/target/LoginWebApp.war /root/server/apache-tomcat-10.1.40/webapps/"
+
+            }
+
+        }
+
+    }
+
+}
