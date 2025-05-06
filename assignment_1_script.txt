@@ -1,0 +1,35 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage ("stage-1") {
+
+            steps {
+
+                sh "sudo yum install httpd -y"
+
+                sh "sudo service httpd start"
+
+            }
+
+        }
+
+        stage ("stage-2"){
+
+            steps {
+
+                sh "touch /var/www/html/index.html"
+
+                sh "chmod 777 /var/www/html/index.html"
+
+                sh 'echo "this is fist file with pipeline" > /var/www/html/index.html'
+
+            }
+
+        }
+
+    }
+
+}
