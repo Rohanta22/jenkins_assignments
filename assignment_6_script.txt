@@ -1,0 +1,35 @@
+pipeline{
+
+    agent{
+
+        label "slave-1"
+
+    }
+
+    stages{
+
+        stage("git copy"){
+
+            steps{
+
+                git branch:"master", url: "https://github.com/Rohanta22/project.git"
+
+            }
+
+        }
+
+        stage("compilation"){
+
+            steps{
+
+                sh "sudo /home/ec2-user/built_tools/apache-maven-3.9.9/bin/mvn clean install"
+
+                sh "sudo cp -r /mnt/jenkins_slave/workspace/assignment_6/target/LoginWebApp.war /home/ec2-user/server/apache-tomcat-10.1.40/webapps/"
+
+            }
+
+        }
+
+    }
+
+}
