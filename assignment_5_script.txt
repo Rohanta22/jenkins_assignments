@@ -1,0 +1,41 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage ("git_copy") {
+
+            steps {
+
+                git branch: "master", url: "https://github.com/Rohanta22/project.git"
+
+            }
+
+        }
+
+        stage ("compile") {
+
+            steps {
+
+                sh "mvn clean install"
+
+            }
+
+        }
+
+        stage ("deploy") {
+
+            steps {
+
+                sh "sudo chmod 400 /root/for_other.pem"
+
+                sh "sudo scp -i /root/for_other.pem /root/.jenkins/workspace/assignemt_2_script/target/LoginWebApp.war ec2-user@35.159.83.202:/home/ec2-user/server/apache-tomcat-10.1.40/webapps/"
+
+            }
+
+        }
+
+    }
+
+}
